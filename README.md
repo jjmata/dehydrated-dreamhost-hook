@@ -12,6 +12,8 @@ $ pip install -r hooks/dreamhost/requirements.txt
 $ export DREAMHOST_API_KEY='K9uX2HyUjeWg5AhAb'
 ```
 
+Get your Dreamhost API key by logging in to your control panel, and navigating to the [Web Panel API page](https://panel.dreamhost.com/index.cgi?tree=home.api). Make sure that the "All dns functions" option is checked before clicking on "Generate a new API Key now!".
+
 ## Usage
 
 ```
