@@ -1,19 +1,20 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-# Copyright (c) 2016 Erin Morelli
-#
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
-# "Software"), to deal in the Software without restriction, including
-# without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
-#
-# The above copyright notice and this permission notice shall be
-# included in all copies or substantial portions of the Software.
-''' Dreamhost DNS hook for letsencrypt.sh
-'''
+"""
+Dreamhost DNS hook for letsencrypt.sh.
+
+Copyright (c) 2016 Erin Morelli
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+"""
 
 import os
 import sys
@@ -21,6 +22,7 @@ import time
 import requests
 import dns.resolver
 import dns.exception
+import deploy
 
 # DNS globals
 DNS_PREFIX = '_acme-challenge'
@@ -42,9 +44,7 @@ HOST_API_PARAMS = {
 
 
 def remove_record(record, value):
-    ''' Removes a TXT DNS record via Dreamhost API
-    '''
-
+    """Remove a TXT DNS record via Dreamhost API."""
     # Set up GET params
     remove_params = HOST_API_PARAMS
     remove_params['cmd'] = 'dns-remove_record'
@@ -60,9 +60,7 @@ def remove_record(record, value):
 
 
 def add_record(record, value):
-    ''' Adds a TXT DNS record via Dreamhost API
-    '''
-
+    """Add a TXT DNS record via Dreamhost API."""
     # Set up GET params
     add_params = HOST_API_PARAMS
     add_params['cmd'] = 'dns-add_record'
@@ -78,9 +76,7 @@ def add_record(record, value):
 
 
 def record_exists(record):
-    ''' Check if TXT DNS record exists via Dreamhost API
-    '''
-
+    """Check if TXT DNS record exists via Dreamhost API."""
     # Set up GET params
     exist_params = HOST_API_PARAMS
     exist_params['cmd'] = 'dns-list_records'
@@ -102,11 +98,9 @@ def record_exists(record):
 
 
 def has_dns_propagated(record, value):
-    ''' Check TXT DNS records for update via MX Toolbox API
-    '''
-
+    """Check TXT DNS records for update via MX Toolbox API."""
     # Use global DNS counter
-    global DNS_COUNTER
+    global DNS_COUNTER  # pylint: disable=global-statement
 
     # Set up storage for TXT records
     txt_records = []
@@ -138,9 +132,7 @@ def has_dns_propagated(record, value):
 
 
 def deploy_challenge(args):
-    ''' Add required TXT DNS record and wait for it to propagate
-    '''
-
+    """Add required TXT DNS record and wait for it to propagate."""
     # Unpack args
     domain = args[0]
     token = args[2]
@@ -179,9 +171,7 @@ def deploy_challenge(args):
 
 
 def clean_challenge(args):
-    ''' Clean up by removing any leftover TXT DNS records
-    '''
-
+    """Clean up by removing any leftover TXT DNS records."""
     # Unpack args
     domain = args[0]
 
@@ -202,9 +192,7 @@ def clean_challenge(args):
 
 
 def deploy_cert(args):
-    ''' Print out information about our new certs
-    '''
-
+    """Print out information about our new certs."""
     # Unpack args
     privkey_file = args[1]
     cert_file = args[2]
@@ -215,13 +203,14 @@ def deploy_cert(args):
     print ' + Certificate: {0}'.format(cert_file)
     print ' + Full Chain: {0}'.format(fullchain_file)
 
+    # Run deployment script
+    deploy.run_deployment()
+
     return
 
 
-def main(args):
-    ''' Determine action to take based on CLI args
-    '''
-
+def run_hook(args):
+    """Determine action to take based on CLI args."""
     # Operations function map
     operations = {
         'deploy_challenge': deploy_challenge,
@@ -238,4 +227,4 @@ def main(args):
 
 # Run this thing
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    run_hook(sys.argv[1:])

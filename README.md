@@ -10,7 +10,11 @@ $ mkdir hooks
 $ git clone https://github.com/ErinMorelli/letsencrypt-dreamhost-hook hooks/dreamhost
 $ pip install -r hooks/dreamhost/requirements.txt
 $ export DREAMHOST_API_KEY='K9uX2HyUjeWg5AhAb'
+$ mkdir -p ~/.config/letsencrypt.sh
+$ cp hooks/dreamhost/sample_deploy.conf ~/.config/letsencrypt.sh/deploy.conf
 ```
+
+Open the `~/.config/letsencrypt.sh/deploy.conf` file in your favorite text editor and update it for your personal needs.
 
 Get your Dreamhost API key by logging in to your control panel, and navigating to the [Web Panel API page](https://panel.dreamhost.com/index.cgi?tree=home.api). Make sure that the "All dns functions" option is checked before clicking on "Generate a new API Key now!".
 
@@ -47,5 +51,14 @@ Processing example.com
  + Private Key: /home/user/letsencrypt.sh/certs/example.com/privkey.pem
  + Certificate: /home/user/letsencrypt.sh/certs/example.com/cert.csr
  + Full Chain: /home/user/letsencrypt.sh/certs/example.com/fullchain.pem
+Starting new file deployment
+# INFO: Using deployment config file /home/user/.config/letsencrypt.sh/deploy.conf
+Deploying new files for: example.com
+ + Succesfully deployed new cert to /opt/lampp/etc/ssl.crt/server.crt
+ + Succesfully deployed new privkey to /opt/lampp/etc/ssl.key/server.key
+Starting post-deployment actions
+ + Attempting action: /opt/lampp/lampp restart
+ + Action exited with status 0
+New file deployment done.
  + Done!
 ```

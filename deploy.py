@@ -3,6 +3,17 @@
 Deploys new Let's Encrypt certificate.
 
 Copyright (c) 2016 Erin Morelli
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 """
 
 from __future__ import print_function
@@ -116,7 +127,7 @@ def deploy_domain(domain, config):
     return deployed
 
 
-def main():
+def run_deployment():
     """Main wrapper function."""
     print('Starting new file deployment', file=sys.stdout)
 
@@ -161,4 +172,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    run_deployment()
