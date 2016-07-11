@@ -122,7 +122,11 @@ def deploy_domain(domain, config):
                 )
 
             # Deploy new file
-            deployed = deploy_file(file_type, old_file, new_file)
+            deploy_success = deploy_file(file_type, old_file, new_file)
+
+            # Set deploy status
+            if deploy_success:
+                deployed = True
 
     return deployed
 

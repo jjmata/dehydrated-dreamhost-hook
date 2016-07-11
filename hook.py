@@ -209,13 +209,26 @@ def deploy_cert(args):
     return
 
 
+def unchanged_cert(args):
+    """Print out unchanged certificat notice."""
+    # Unpack args
+    domain = args[0]
+
+    # Print message
+    msg = ' + Existing cert for \'{0}\' is unchanged. Skipping hook!'
+    print msg.format(domain)
+
+    return
+
+
 def run_hook(args):
     """Determine action to take based on CLI args."""
     # Operations function map
     operations = {
         'deploy_challenge': deploy_challenge,
         'clean_challenge': clean_challenge,
-        'deploy_cert': deploy_cert
+        'deploy_cert': deploy_cert,
+        'unchanged_cert': unchanged_cert
     }
 
     # Deploy hook operation
