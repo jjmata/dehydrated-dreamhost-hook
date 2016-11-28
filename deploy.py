@@ -26,11 +26,11 @@ import yaml
 
 
 # Define letsencrypt.sh defaults
-LETSENCRYPT_ROOT = '/etc/letsencrypt.sh/certs/{domain}/{pem}.pem'
+LETSENCRYPT_ROOT = '/etc/dehydrated/certs/{domain}/{pem}.pem'
 
 # Set user config file path
 CONFIG_FILE = os.path.join(
-    os.path.expanduser('~'), '.config', 'letsencrypt.sh', 'deploy.conf')
+    os.path.expanduser('~'), '.config', 'dehydrated', 'deploy.conf')
 
 # Set generic error message template
 ERROR = ' + ERROR: Could not locate {name} files:\n\t{files}'

@@ -183,8 +183,12 @@ def clean_challenge(args):
     (exists, value) = record_exists(record)
 
     if exists:
+        # Sleep before removing to allow request to complete
+        print ' + Old TXT record found, waiting 30s before removing...'
+        time.sleep(30)
+
         # If it exists but does not have the token we need, remove it
-        print ' + Old TXT record found, removing...'
+        print ' + Removing old TXT record...'
         removed = remove_record(record, value)
         print ' + {0}: {1}'.format(removed['data'], removed['result'])
 

@@ -1,33 +1,33 @@
-# Dreamhost hook for letsencrypt.sh ACME client
+# Dreamhost hook for dehydrated ACME client
 
-This a hook for the [Let's Encrypt](https://letsencrypt.org/) ACME client [letsencrypt.sh](https://github.com/lukas2511/letsencrypt.sh), that enables using DNS records on [Dreamhost](https://www.dreamhost.com/) to respond to `dns-01` challenges. Requires your Dreamhost API key being in the environment.
+This a hook for the [Let's Encrypt](https://letsencrypt.org/) ACME client [dehydrated](https://github.com/lukas2511/dehydrated), that enables using DNS records on [Dreamhost](https://www.dreamhost.com/) to respond to `dns-01` challenges. Requires your Dreamhost API key being in the environment.
 
 ## Setup
 ```
-$ git clone https://github.com/lukas2511/letsencrypt.sh
-$ cd letsencrypt.sh
+$ git clone https://github.com/lukas2511/dehydrated
+$ cd dehydrated
 $ mkdir hooks
-$ git clone https://github.com/ErinMorelli/letsencrypt-dreamhost-hook hooks/dreamhost
+$ git clone https://github.com/ErinMorelli/dehydrated-dreamhost-hook hooks/dreamhost
 $ pip install -r hooks/dreamhost/requirements.txt
 $ export DREAMHOST_API_KEY='K9uX2HyUjeWg5AhAb'
-$ mkdir -p ~/.config/letsencrypt.sh
-$ cp hooks/dreamhost/sample_deploy.conf ~/.config/letsencrypt.sh/deploy.conf
+$ mkdir -p ~/.config/dehydrated
+$ cp hooks/dreamhost/sample_deploy.conf ~/.config/dehydrated/deploy.conf
 ```
 
-Open the `~/.config/letsencrypt.sh/deploy.conf` file in your favorite text editor and update it for your personal needs.
+Open the `~/.config/dehydrated/deploy.conf` file in your favorite text editor and update it for your personal needs.
 
 Get your Dreamhost API key by logging in to your control panel, and navigating to the [Web Panel API page](https://panel.dreamhost.com/index.cgi?tree=home.api). Make sure that the "All dns functions" option is checked before clicking on "Generate a new API Key now!".
 
 ## Usage
 
 ```
-$ ./letsencrypt.sh -c -d example.com -t dns-01 -k 'hooks/dreamhost/hook.py'
+$ ./dehydrated -c -d example.com -t dns-01 -k 'hooks/dreamhost/hook.py'
 #
 # !! WARNING !! No main config file found, using default config!
 #
 Processing example.com
  + Signing domains...
- + Creating new directory /home/user/letsencrypt.sh/certs/example.com ...
+ + Creating new directory /home/user/dehydrated/certs/example.com ...
  + Generating private key...
  + Generating signing request...
  + Requesting challenge for example.com...
@@ -48,11 +48,11 @@ Processing example.com
  + Done!
  + Creating fullchain.pem...
  + Dreamhost hook executing: deploy_cert
- + Private Key: /home/user/letsencrypt.sh/certs/example.com/privkey.pem
- + Certificate: /home/user/letsencrypt.sh/certs/example.com/cert.csr
- + Full Chain: /home/user/letsencrypt.sh/certs/example.com/fullchain.pem
+ + Private Key: /home/user/dehydrated/certs/example.com/privkey.pem
+ + Certificate: /home/user/dehydrated/certs/example.com/cert.csr
+ + Full Chain: /home/user/dehydrated/certs/example.com/fullchain.pem
 Starting new file deployment
-# INFO: Using deployment config file /home/user/.config/letsencrypt.sh/deploy.conf
+# INFO: Using deployment config file /home/user/.config/dehydrated/deploy.conf
 Deploying new files for: example.com
  + Succesfully deployed new cert to /opt/lampp/etc/ssl.crt/server.crt
  + Succesfully deployed new privkey to /opt/lampp/etc/ssl.key/server.key
