@@ -224,6 +224,20 @@ def unchanged_cert(args):
 
     return
 
+def invalid_challenge(args):
+    domain, result = args
+    msg = ' + Invalid challenge for \'{0}\''
+    print msg.format(domain)
+    msg = ' + Full error: \'{0}\''
+    print msg.format(result)
+
+    return
+
+def startup_hook(args):
+    return
+
+def exit_hook(args):
+    return
 
 def run_hook(args):
     """Determine action to take based on CLI args."""
@@ -232,7 +246,10 @@ def run_hook(args):
         'deploy_challenge': deploy_challenge,
         'clean_challenge': clean_challenge,
         'deploy_cert': deploy_cert,
-        'unchanged_cert': unchanged_cert
+        'unchanged_cert': unchanged_cert,
+        'invalid_challenge': invalid_challenge,
+        'startup_hook': startup_hook,
+        'exit_hook': exit_hook
     }
 
     # Deploy hook operation
